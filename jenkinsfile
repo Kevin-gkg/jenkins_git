@@ -1,0 +1,19 @@
+pipeline {
+    agent {
+        label 'SlaveNode_01'
+    }
+
+    stages {
+        stage('Start ET') {
+            steps {
+                startET toolName: 'ECU-TEST 2023.3', workspaceDir: 'C:\\1_ECU_TEST_Workspace\\ET_2023.3\\ECU-TEST_Basic'
+            }
+        }
+        stage('Run pkg') {
+            steps {
+                testPackage testConfig: [constants: [], forceReload: false, keepConfig: false, loadOnly: false, tbcFile: 'C:\\1_ECU_TEST_Workspace\\ET_2023.3\\ECU-TEST_Basic\\Configurations\\Testlab_HiL.tbc', tcfFile: 'C:\\1_ECU_TEST_Workspace\\ET_2023.3\\ECU-TEST_Basic\\Configurations\\SW_Ver_1.tcf'], testFile: 'C:\\1_ECU_TEST_Workspace\\ET_2023.3\\ECU-TEST_Basic\\Packages\\Package 0.pkg'
+            }
+        }
+    }
+}
+
